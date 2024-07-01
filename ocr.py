@@ -5,6 +5,7 @@ import re
 import unstructured_pytesseract
 import numpy as np
 from scipy.ndimage import interpolation as inter
+import tkinter as tks
 
 unstructured_pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
@@ -59,13 +60,9 @@ def process_receipt_image(image_path, show=False):
 
     # Przekształć obraz na skalę szarości
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-    #gray_image = cv2.morphologyEx(gray_image, cv2.MORPH_OPEN, (3,3))
-    #gray_image = cv2.erode(gray_image.copy(), None, iterations=1)
     
     # Zastosuj progowanie, aby zwiększyć kontrast
     _, thresh_image = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    #thresh_image = cv2.erode(thresh_image.copy(), None, iterations=1)
     thresh_image = cv2.morphologyEx(thresh_image, cv2.MORPH_OPEN, (5,5), iterations=5)
 
     if show:
@@ -83,9 +80,9 @@ def process_receipt_image(image_path, show=False):
 
 if __name__ == "__main__":
     # Ścieżka do obrazu paragonu
-    # image_path = 'data\Paragon_czyt.png'
-    image_path = 'data\par2.jpg'
-
+    root = tk.Tk()
+    root.withdraw()
+    image_path = filedialog.askopenfilename()
     # Przetwarzaj obraz i wyciągnij dane
     text = process_receipt_image(image_path)
 

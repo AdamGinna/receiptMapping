@@ -4,7 +4,8 @@ from langchain_community.document_loaders.image import UnstructuredImageLoader
 from typing import List
 from langchain_openai import ChatOpenAI
 from typing import Optional
-from tkinter import filedialog as fd
+import tkinter as tk
+from tkinter import filedialog
 import unstructured_pytesseract
 import secret
 import ocr
@@ -43,12 +44,12 @@ def doc2struct(file_name, llm, struct):
 
 
 
-def __main__():
+if __name__ == "__main__":
     llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
 
-    #file_name = "data\invoice_Aaron Bergman_36258.pdf"
-    #file_name = "data\Paragon_czyt.png"
-    file_name = "data\par2.jpg"
+    root = tk.Tk()
+    root.withdraw()
+    file_name = filedialog.askopenfilename()
 
     text, invoice = doc2struct(file_name, llm, Invoice)
     print(text)
@@ -58,4 +59,3 @@ def __main__():
     print()
     for prod in invoice.products:
         print(prod)
-

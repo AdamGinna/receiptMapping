@@ -81,7 +81,7 @@ def process_receipt_image(image_path, show=False):
     # return products_and_prices
     return text
 
-def __main__():
+if __name__ == "__main__":
     # Ścieżka do obrazu paragonu
     # image_path = 'data\Paragon_czyt.png'
     image_path = 'data\par2.jpg'
